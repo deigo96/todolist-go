@@ -17,7 +17,7 @@ type ServerConfig struct {
 func App() Application {
 	app := &Application{}
 	app.Env = NewEnv()
-	app.Db = NewPostgresDatabase(app.Env)
+	app.Db = NewDatabaseConnection(app.Env)
 	return *app
 }
 

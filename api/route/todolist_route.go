@@ -20,4 +20,11 @@ func NewTodoListRoute(env *bootstrap.Env, timeout time.Duration, db gorm.DB, gin
 	route := gin.Group("")
 
 	route.GET("/todolist", tc.GetTodolist)
+
+	// activity
+	route.GET("/activity-groups", tc.GetAllActivity)
+	route.POST("/activity-groups", tc.CreateActivity)
+	route.GET("/activity-groups/:id", tc.GetActivityById)
+	route.PATCH("/activity-groups/:id", tc.UpdateActivity)
+	route.DELETE("/activity-groups/:id", tc.DeleteActivity)
 }

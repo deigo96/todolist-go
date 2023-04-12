@@ -11,8 +11,7 @@ type TodolistController struct {
 	Todolist domain.TodolistUsecase
 }
 
-func (tc *TodolistController) GetTodolist (c *gin.Context) {
+func (tc *TodolistController) GetTodolist(c *gin.Context) {
 
-
-	c.JSON(http.StatusOK, domain.BuildResponse(http.StatusOK, "Success", domain.EmptyObj{}))
+	c.JSON(http.StatusOK, domain.BuildResponse("Success", "Success", domain.EmptyObj{}))
 }

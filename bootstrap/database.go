@@ -1,35 +1,18 @@
 package bootstrap
 
 import (
-	"fmt"
-
-	"gorm.io/driver/postgres"
+	_ "github.com/go-sql-driver/mysql"
+	"gorm.io/driver/mysql"
 	"gorm.io/gorm"
-	"gorm.io/gorm/schema"
 )
 
-func NewPostgresDatabase(env *Env) *gorm.DB {
-	// ctx, cancel := context.WithTimeout(context.Background(), 10*time.Second)
-	// defer cancel()
-
-	dsn := fmt.Sprintf("host=%s user=%s password=%s dbname=%s port=%s sslmode=disable TimeZone=Asia/Jakarta",
-		env.DbHost,
-		env.DbUser,
-		env.DbPass,
-		env.DbName,
-		env.DbPort)
-
-	db, err := gorm.Open(postgres.Open(dsn), &gorm.Config{
-		NamingStrategy: schema.NamingStrategy{
-			SingularTable: true,
-		},
-	})
+func NewDatabaseConnection(env *Env) *gorm.DB {
+	// db, err := sql.Open("mysql", "project:brengsek96@tcp(127.0.0.1:3306)/test")
+	dsn := "project:brengsek96@tcp(127.0.0.1:3306)/todolist?charset=utf8mb4&parseTime=True&loc=Local"
+	db, err := gorm.Open(mysql.Open(dsn), &gorm.Config{})
 	if err != nil {
 		panic(err)
 	}
-
-	// test := db.WithContext(ctx)
-	// fmt.Println(*test)
 
 	return db
 }

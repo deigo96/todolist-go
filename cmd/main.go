@@ -38,5 +38,5 @@ func main() {
 	host := app.Env.ServerHost
 	port := app.Env.ServerPort
 
-	handler.Run(host+ ":" + port)
+	handler.Run(host + ":" + port)
 }

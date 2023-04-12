@@ -4,17 +4,26 @@ type EmptyObj struct{}
 
 // Response is used for static shape json return
 type Response struct {
-	Code    int         `json:"code"`
-	Message string      `json:"status"`
-	Data    interface{} `json:"data"`
+	Status  string      `json:"status"`
+	Message string      `json:"message"`
+	Data    interface{} `json:"data,omitempty"`
 }
 
 // BuildResponse method is to inject data value to dynamic success response
-func BuildResponse(code int, message string, data interface{}) Response {
+func BuildResponse(status, message string, data interface{}) Response {
 	res := Response{
-		Code:    code,
+		Status:  status,
 		Message: message,
 		Data:    data,
 	}
+	return res
+}
+
+func BuildError(status, message string) Response {
+	res := Response{
+		Status:  status,
+		Message: message,
+	}
+
 	return res
 }
