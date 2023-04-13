@@ -3,7 +3,8 @@ package controller
 import (
 	"net/http"
 
-	"github.com/deigo96/todolist-go.git/domain"
+	"todolist/domain"
+
 	"github.com/gin-gonic/gin"
 )
 

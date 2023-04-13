@@ -3,7 +3,8 @@ package route
 import (
 	"time"
 
-	"github.com/deigo96/todolist-go.git/bootstrap"
+	"todolist/bootstrap"
+
 	"github.com/gin-gonic/gin"
 	"gorm.io/gorm"
 )

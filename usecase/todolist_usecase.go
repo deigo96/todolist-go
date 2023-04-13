@@ -4,7 +4,7 @@ import (
 	"context"
 	"time"
 
-	"github.com/deigo96/todolist-go.git/domain"
+	"todolist/domain"
 )
 
 type todolist struct {
@@ -112,6 +112,86 @@ func (t *todolist) DeleteActivity(c context.Context, str string) error {
 	id := domain.StringToInt(str)
 
 	err := t.todoList.DeleteActivity(ctx, id)
+	if err != nil {
+		return err
+	}
+
+	return nil
+}
+
+func (t *todolist) CreateTodo(c context.Context, req domain.TodoParams) (*domain.Todos, error) {
+	ctx, cancel := context.WithTimeout(c, t.timeout)
+	defer cancel()
+
+	request := domain.Todos{
+		Title:           *req.Title,
+		ActivityGroupId: *req.ActivityGroupId,
+		IsActive:        *req.IsActive,
+		Priority:        req.Priority,
+		CreatedAt:       time.Now(),
+		UpdatedAt:       time.Now(),
+	}
+
+	todos, err := t.todoList.CreateTodo(ctx, request)
+	if err != nil {
+		return nil, err
+	}
+
+	return todos, nil
+}
+
+func (t *todolist) GetAllTodo(c context.Context, aId string) ([]domain.Todos, error) {
+	ctx, cancel := context.WithTimeout(c, t.timeout)
+	defer cancel()
+
+	allTodos, err := t.todoList.GetAllTodo(ctx, aId)
+	if err != nil {
+		return nil, err
+	}
+
+	return allTodos, nil
+}
+
+func (t *todolist) GetTodoById(c context.Context, str string) (*domain.Todos, error) {
+	ctx, cancel := context.WithTimeout(c, t.timeout)
+	defer cancel()
+
+	id := domain.StringToInt(str)
+
+	todo, err := t.todoList.GetTodoById(ctx, id)
+	if err != nil {
+		return nil, err
+	}
+
+	return todo, nil
+}
+
+func (t *todolist) UpdateTodo(c context.Context, str string, req domain.TodoParams) (*domain.Todos, error) {
+	ctx, cancel := context.WithTimeout(c, t.timeout)
+	defer cancel()
+
+	id := domain.StringToInt(str)
+
+	err := t.todoList.UpdateTodo(ctx, id, req)
+	if err != nil {
+		return nil, err
+	}
+
+	todo, err := t.todoList.GetTodoById(ctx, id)
+	if err != nil {
+		return nil, err
+	}
+
+	return todo, nil
+}
+
+func (t *todolist) DeleteTodo(c context.Context, str string) error {
+	ctx, cancel := context.WithTimeout(c, t.timeout)
+	defer cancel()
+
+	id := domain.StringToInt(str)
+
+	err := t.todoList.DeleteTodo(ctx, id)
 	if err != nil {
 		return err
 	}

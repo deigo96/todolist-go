@@ -3,8 +3,9 @@ package main
 import (
 	"time"
 
-	"github.com/deigo96/todolist-go.git/api/route"
-	"github.com/deigo96/todolist-go.git/bootstrap"
+	"todolist/api/route"
+	"todolist/bootstrap"
+
 	"github.com/gin-contrib/cors"
 	"github.com/gin-gonic/gin"
 )

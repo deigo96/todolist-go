@@ -1,4 +1,4 @@
-module github.com/deigo96/todolist-go.git
+module todolist
 
 go 1.19
 
